@@ -12,12 +12,12 @@ set(DEPENDS
 )
 
 # 添加节点   # ${CMAKE_CURRENT_SOURCE_DIR}获取到当前功能包目录
-add_executable(planning_node 
-  ${CMAKE_CURRENT_SOURCE_DIR}/planning_node.cpp
+add_executable(planning_process 
+  ${CMAKE_CURRENT_SOURCE_DIR}/planning_process_main.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/planning_process.cpp
 )
 # 设置一个变量来代替planning_node
-set(target planning_node)
+set(target planning_process)
 # 添加依赖
 ament_target_dependencies(${target}
   ${DEPENDS}
