@@ -10,6 +10,9 @@ class PNCMapCreatorSTrun : public PNCMapCreatorBase  // sturn地图
 {
 public:
     PNCMapCreatorSTrun();
+    PNCMap creat_pnc_map() override;    // 重写基类 生成地图
+private:
+    
 };
 
 }   // namespace Planning

@@ -3,9 +3,60 @@
 namespace Planning
 {
 
-    GlobalPathServer::GlobalPathServer():Node("global_path_server_node")        // 全局路径服务器
+    GlobalPathServer::GlobalPathServer() : Node("global_path_server_node") // 全局路径服务器
     {
         RCLCPP_INFO(this->get_logger(), "global path server node created");
+        // 完善构造函数
+        // 创建两个全局路径发布器
+        global_path_pub_ = this->create_publisher<Path>("global_path", 10);
+        global_path_rviz_pub_ = this->create_publisher<Marker>("global_path_rviz", 10);
+        // 创建全局路径服务器
+        global_path_server_ = this->create_service<GlobalPathService>("global_path_server",
+                                                                      std::bind(&GlobalPathServer::response_global_path_callback, this, _1, _2));
+    }
+    // 全局路径回调函数 GlobalPathService为消息类型
+    void GlobalPathServer::response_global_path_callback(const std::shared_ptr<GlobalPathService::Request> request,
+                                                         const std::shared_ptr<GlobalPathService::Response> response)
+    {
+        // 实现回调函数
+        // 接受请求 用多态实现
+        switch (request->global_planner_type) // request->global_planner_type去自定义的消息类型中查看
+        {
+        case static_cast<int>(GlobalPlannerType::NORMAL):
+            global_planner_base_ = std::make_shared<GlobalPlannerNormal>(); // 父类指针，指向之类的对象
+            break;
+        default:
+            RCLCPP_WARN(this->get_logger(), "Invalid global planner type!");
+            return;
+        }
+        // 判断请求是否为空值
+        if (request->pnc_map.midline.points.empty())
+        {
+            /* code */
+            RCLCPP_ERROR(this->get_logger(), "pnc_map empty, global_path cannot be created!");
+            return;
+        }
+        
+        // 搜索并且相应全局路径
+        const auto global_path = global_planner_base_->search_global_path(request->pnc_map);
+        response->global_path = global_path;
+
+        // 发布全局路径 给局部规划使用
+        // 这里path 类型的只发布一次，而且path没有frame_locked，所以无法在rviz中固定住 需要path2marker函数进行转换
+        global_path_pub_->publish(global_path); // 发布路径
+        RCLCPP_INFO(this->get_logger(), "global_path published!");
+
+        // 发布用于rviz显示的全局路径
+        const auto global_path_rviz = path2marker(global_path);
+        global_path_rviz_pub_->publish(global_path_rviz);
+        RCLCPP_INFO(this->get_logger(), "global_path for rviz published!");
+    }
+
+    // 将生成path类型的路径转换成marker类型，供给rviz显示用
+    Marker GlobalPathServer::path2marker(const Path &path)
+    {
+        Marker path_rviz_; // 用于返回给rviz的变量
+        return path_rviz_;
     }
 
 }

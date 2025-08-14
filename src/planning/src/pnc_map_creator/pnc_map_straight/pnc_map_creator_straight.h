@@ -10,6 +10,7 @@ class PNCMapCreatorStraight : public PNCMapCreatorBase  // 直道地图
 {
 public:
     PNCMapCreatorStraight();
+    PNCMap creat_pnc_map() override;    // 重写 生成地图
 };
 
 }   // namespace Planning
