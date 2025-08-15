@@ -9,6 +9,8 @@ Panels:
         - /LaserScan1/Topic1
         - /Map1/Topic1
         - /RobotModel2
+        - /MarkerArray1
+        - /MarkerArray1/Topic1
       Splitter Ratio: 0.5
     Tree Height: 545
   - Class: rviz_common/Selection
@@ -294,6 +296,18 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: MarkerArray
+      Namespaces:
+        {}
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /planning/pnc_map_markerarray
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -340,25 +354,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 6.164224624633789
+      Distance: 15.04261589050293
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.27459990978240967
-        Y: 0.0926709696650505
-        Z: 0.0331096425652504
+        X: 0.6848185062408447
+        Y: 0.06457573175430298
+        Z: 0.5560226440429688
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.42539918422698975
+      Pitch: 0.5303990840911865
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.108572483062744
+      Yaw: 4.11857271194458
     Saved: ~
 Window Geometry:
   Displays:

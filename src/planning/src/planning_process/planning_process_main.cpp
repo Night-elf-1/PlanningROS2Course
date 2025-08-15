@@ -14,7 +14,7 @@ int main(int argc, char const *argv[])
     rclcpp::shutdown();
     return 1;
   }
-  
+
 
   rclcpp::spin(node);   // 阻塞节点
   rclcpp::shutdown();

@@ -1,6 +1,7 @@
 #ifndef PNC_MAP_CREATOR_BASE_H_
 #define PNC_MAP_CREATOR_BASE_H_
 
+#include <cmath>
 #include "rclcpp/rclcpp.hpp"
 #include "config_reader.h"
 #include "base_msgs/msg/pnc_map.hpp"
