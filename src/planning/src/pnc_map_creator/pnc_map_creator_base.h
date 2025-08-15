@@ -38,7 +38,7 @@ namespace Planning
         MarkerArray pnc_map_markerarray_; // 返回值 发给rviz的变量
 
         Point P_mid_, pl_, pr_;   // 车道的点 中心点 左点 右点
-        double theta_current_;    // 车当前的航向角
+        double theta_current_ = 0.0;    // 车当前的航向角
         double len_step_ = 0.0;   // 步长
         double theta_step_ = 0.0; // 角度步长 分辨率
     };
