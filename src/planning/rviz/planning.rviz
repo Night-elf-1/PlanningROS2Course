@@ -8,9 +8,12 @@ Panels:
         - /Status1
         - /LaserScan1/Topic1
         - /Map1/Topic1
-        - /RobotModel2
         - /MarkerArray1
         - /MarkerArray1/Topic1
+        - /MarkerArray1/Namespaces1
+        - /Marker1
+        - /Marker1/Status1
+        - /Marker1/Topic1
       Splitter Ratio: 0.5
     Tree Height: 545
   - Class: rviz_common/Selection
@@ -300,13 +303,26 @@ Visualization Manager:
       Enabled: true
       Name: MarkerArray
       Namespaces:
-        {}
+        pnc_map: true
       Topic:
         Depth: 5
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /planning/pnc_map_markerarray
+      Value: true
+    - Class: rviz_default_plugins/Marker
+      Enabled: true
+      Name: Marker
+      Namespaces:
+        {}
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /planning/global_path_rviz
       Value: true
   Enabled: true
   Global Options:
@@ -354,7 +370,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 15.04261589050293
+      Distance: 26.20590591430664
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -369,10 +385,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5303990840911865
+      Pitch: 0.4703991413116455
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.11857271194458
+      Yaw: 3.9335670471191406
     Saved: ~
 Window Geometry:
   Displays:

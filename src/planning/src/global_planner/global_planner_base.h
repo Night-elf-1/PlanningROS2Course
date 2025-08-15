@@ -27,9 +27,9 @@ namespace Planning
         inline Path get_global_path() { return global_path_; }      // 获取全局路径
         virtual ~GlobalPlannerBase() {}                             // 虚析构函数这里一定要实现
     protected:
-        std::unique_ptr<ConfigReader> global_planner_config_;
-        int global_planner_type_ = 0;
-        Path global_path_;
+        std::unique_ptr<ConfigReader> global_planner_config_; // 配置
+        int global_planner_type_ = 0;                         // 规划算法类型
+        Path global_path_;                                    // 全局路径
     };
 
 } // namespace Planning

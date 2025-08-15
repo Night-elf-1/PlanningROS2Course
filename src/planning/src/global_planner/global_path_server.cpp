@@ -36,7 +36,7 @@ namespace Planning
             RCLCPP_ERROR(this->get_logger(), "pnc_map empty, global_path cannot be created!");
             return;
         }
-        
+
         // 搜索并且相应全局路径
         const auto global_path = global_planner_base_->search_global_path(request->pnc_map);
         response->global_path = global_path;
@@ -56,6 +56,28 @@ namespace Planning
     Marker GlobalPathServer::path2marker(const Path &path)
     {
         Marker path_rviz_; // 用于返回给rviz的变量
+        path_rviz_.header = path.header;
+        path_rviz_.ns = "global_path"; // 命名空间
+        path_rviz_.id = 0;
+        path_rviz_.action = Marker::ADD;
+        path_rviz_.type = Marker::LINE_STRIP; // 连续实现
+        path_rviz_.scale.x = 0.05;            // 线段宽度
+        path_rviz_.color.a = 1.0;             // 线段不透明度
+        path_rviz_.color.r = 0.8;
+        path_rviz_.color.g = 0.0;
+        path_rviz_.color.b = 0.0;
+        path_rviz_.lifetime = rclcpp::Duration::max(); // 生命周期
+        path_rviz_.frame_locked = true;                // 锁定坐标系
+
+        Point p_tmp;                        // 临时点
+        for (const auto &pose : path.poses) // 循环path下的每一个pose
+        {
+            /* code */
+            p_tmp.x = pose.pose.position.x; // pose.pose.position.x 这里是全局路径传进来的
+            p_tmp.y = pose.pose.position.y;
+            path_rviz_.points.emplace_back(p_tmp);
+        }
+
         return path_rviz_;
     }
 
