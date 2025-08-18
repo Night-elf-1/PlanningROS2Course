@@ -11,21 +11,50 @@ namespace Planning
 
     void NewtonMethod::solve_problem()
     {
+        std::cout << "请选择1:求根 or 2:求极值" << std::endl;
+        int choice;
         double x_next;
-        x_ = 8;
-        while (count_ <= maxIt_)
-        {
-            x_next = x_ - ((x_*x_*x_ - 216) / (3*x_*x_));
+        std::cin >> choice;
+        std::cout << "请选择初始位置x_:" << std::endl;
+        std::cin >> x_;
 
-            if (abs(x_next - x_) <= eps_)
+        if (choice == 1)
+        {
+            // x_ = 8;
+            while (count_ <= maxIt_)
             {
-                std::cout << "根的值为:" << x_next << std::endl;
-                break;
-            }else
+                x_next = x_ - ((x_ * x_ * x_ - 216) / (3 * x_ * x_));
+
+                if (abs(x_next - x_) <= eps_)
+                {
+                    std::cout << "根的值为:" << x_next << std::endl;
+                    break;
+                }
+                else
+                {
+                    count_ += 1;
+                    x_ = x_next;
+                    std::cout << "x_next = " << x_next << std::endl;
+                }
+            }
+        }
+        else
+        {
+            // x_ = 2;
+            while (count_ <= maxIt_)
             {
-                count_ += 1;
-                x_ = x_next;
-                std::cout << "x_next = " << x_next << std::endl;
+                x_next = x_ - ((4 * x_ * x_ * x_ + 2) / (12 * x_ * x_));
+                if (abs(x_next - x_) <= eps_)
+                {
+                    std::cout << "极值为:" << (x_next * x_next * x_next * x_next + 2 * x_next) << std::endl;
+                    std::cout << "根为:" << x_next << std::endl;
+                    break;
+                }
+                else
+                {
+                    count_ += 1;
+                    x_ = x_next;
+                }
             }
         }
     }
