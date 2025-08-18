@@ -10,9 +10,15 @@ set(DEPENDS
 add_executable(osqp_test
     ${CMAKE_CURRENT_SOURCE_DIR}/osqp_test/osqp_test.cpp
 )
+add_executable(newton_test
+    ${CMAKE_CURRENT_SOURCE_DIR}/Newtonsmethod_test/newton.cpp
+)
 
 # 添加依赖
 ament_target_dependencies(osqp_test
+    ${DEPENDS}
+)
+ament_target_dependencies(newton_test
     ${DEPENDS}
 )
 
@@ -20,9 +26,14 @@ target_link_libraries(osqp_test
     Eigen3::Eigen
     OsqpEigen::OsqpEigen
 )
+target_link_libraries(newton_test
+    Eigen3::Eigen
+    OsqpEigen::OsqpEigen
+)
 
 # 安装动态库 节点 相关目录
 install(TARGETS
     osqp_test
+    newton_test
     DESTINATION lib/${PLANNING_PACKAGE_NAME}
 )

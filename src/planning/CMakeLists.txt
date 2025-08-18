@@ -57,6 +57,7 @@ include_directories(
   src/local_planner/local_speeds
   src/reference_line
   src/test/osqp_test
+  src/test/Newtonsmethod_test
   src/vehicle_info
   src/vehicle_info/main_car
   src/vehicle_info/obs_car
