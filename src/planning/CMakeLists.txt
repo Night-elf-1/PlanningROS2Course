@@ -56,6 +56,7 @@ include_directories(
   src/local_planner/local_path
   src/local_planner/local_speeds
   src/reference_line
+  src/test/osqp_test
   src/vehicle_info
   src/vehicle_info/main_car
   src/vehicle_info/obs_car
@@ -72,6 +73,7 @@ add_subdirectory(src/move_cmd)
 add_subdirectory(src/planning_process)
 add_subdirectory(src/pnc_map_creator)
 add_subdirectory(src/reference_line)
+add_subdirectory(src/test)
 add_subdirectory(src/vehicle_info)
 
 # 将同级目录下的launch urdf config rviz文件复制到install/planing/share目录下面，以便可执行文件能够找到配置文件
