@@ -93,7 +93,19 @@ Visualization Manager:
         All Enabled: true
         base_footprint:
           Value: true
+        base_footprint_obs1:
+          Value: true
+        base_footprint_obs2:
+          Value: true
+        base_footprint_obs3:
+          Value: true
         base_link:
+          Value: true
+        base_link_obs1:
+          Value: true
+        base_link_obs2:
+          Value: true
+        base_link_obs3:
           Value: true
         camera:
           Value: true
@@ -136,39 +148,22 @@ Visualization Manager:
                   {}
               right_rear:
                 {}
+          base_footprint_obs1:
+            base_link_obs1:
+              {}
+          base_footprint_obs2:
+            base_link_obs2:
+              {}
+          base_footprint_obs3:
+            base_link_obs3:
+              {}
       Update Interval: 0
       Value: true
-    - Alpha: 1
-      Class: rviz_default_plugins/RobotModel
-      Collision Enabled: false
-      Description File: ""
-      Description Source: Topic
-      Description Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: ""
-      Enabled: true
-      Links:
-        All Links Enabled: true
-        Expand Joint Details: false
-        Expand Link Details: false
-        Expand Tree: false
-        Link Tree Style: ""
-      Mass Properties:
-        Inertia: false
-        Mass: false
-      Name: RobotModel
-      TF Prefix: ""
-      Update Interval: 0
-      Value: true
-      Visual Enabled: true
     - Alpha: 0.699999988079071
       Class: rviz_default_plugins/Map
       Color Scheme: map
       Draw Behind: false
-      Enabled: true
+      Enabled: false
       Name: Map
       Topic:
         Depth: 5
@@ -184,7 +179,7 @@ Visualization Manager:
         Reliability Policy: Reliable
         Value: /map_updates
       Use Timestamp: false
-      Value: true
+      Value: false
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Collision Enabled: false
@@ -257,7 +252,64 @@ Visualization Manager:
       Mass Properties:
         Inertia: false
         Mass: false
-      Name: RobotModel
+      Name: MainCar
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Alpha: 1
+      Class: rviz_default_plugins/RobotModel
+      Collision Enabled: false
+      Description File: ""
+      Description Source: Topic
+      Description Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /obs_car/robot_description
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        base_footprint_obs1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base_footprint_obs2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base_footprint_obs3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base_link_obs1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base_link_obs2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base_link_obs3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        map:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+      Mass Properties:
+        Inertia: false
+        Mass: false
+      Name: ObsCar
       TF Prefix: ""
       Update Interval: 0
       Value: true
@@ -331,7 +383,7 @@ Visualization Manager:
       Length: 0.30000001192092896
       Line Style: Billboards
       Line Width: 0.20000000298023224
-      Name: Path
+      Name: ReferenceLine
       Offset:
         X: 0
         Y: 0
@@ -395,25 +447,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 31.932769775390625
+      Distance: 18.87417221069336
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 6.297601222991943
-        Y: -5.360705375671387
-        Z: 5.912759780883789
+        X: 3.1015214920043945
+        Y: -2.918839931488037
+        Z: 3.0474815368652344
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5403990745544434
+      Pitch: 0.4053993225097656
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.778585195541382
+      Yaw: 3.7485551834106445
     Saved: ~
 Window Geometry:
   Displays:
@@ -431,5 +483,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1523
-  X: 201
-  Y: 103
+  X: 251
+  Y: 109

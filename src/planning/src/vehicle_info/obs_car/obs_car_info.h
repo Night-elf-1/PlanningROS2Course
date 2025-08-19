@@ -9,7 +9,7 @@ namespace Planning
 class ObsCar : public VehicleBase  // 障碍物
 {
 public:
-    ObsCar();
+    ObsCar(const int &id);
 };
 
 }   // namespace Planning

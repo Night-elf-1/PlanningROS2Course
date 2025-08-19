@@ -66,7 +66,10 @@ namespace Planning
   private: // 成员变量 写在private里面的变量，外部要获取的话要在public中写一个获取函数，保护数据安全
     // 在当前类中声明了一个名为 process_config_ 的成员变量，它是一个 独占所有权的智能指针，指向一个 ConfigReader 对象，用于读取或管理配置
     std::unique_ptr<ConfigReader> process_config_;
-    std::shared_ptr<VehicleBase> car_; // 主车
+    std::shared_ptr<VehicleBase> car_;                      // 主车
+    std::vector<std::shared_ptr<VehicleBase>> obses_spawn_; // 障碍物生成的容器
+    std::vector<std::shared_ptr<VehicleBase>> obses_;       // 需要考虑的障碍物容器
+    double obs_dis = 0.0;                                   // 考虑障碍物的距离
 
     // 坐标变换
     std::shared_ptr<StaticTransformBroadcaster> tf_broadcaster_; // 坐标广播器

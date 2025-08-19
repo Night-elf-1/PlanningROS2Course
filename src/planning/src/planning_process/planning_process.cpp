@@ -12,6 +12,11 @@ namespace Planning
 
         // 创建车辆 和 障碍物
         car_ = std::make_shared<MainCar>(); // 父类对象调用子类指针 会调用主车文件中的构造函数
+        for (int i = 0; i < 3; i++)         // 用循环来生成障碍物
+        {
+            auto obs_car = std::make_shared<ObsCar>(i+1); // 创建一个障碍物的对象 指针
+            obses_spawn_.emplace_back(obs_car);        // 父类的指针， 指向了子类的对象
+        }
 
         // 坐标广播器
         tf_broadcaster_ = std::make_shared<StaticTransformBroadcaster>(this);
@@ -53,8 +58,13 @@ namespace Planning
     {
         // 生成车辆
         vehicle_spawn(car_);
+        
         // 生成障碍物
-
+        for (const auto &obs : obses_spawn_)
+        {
+            vehicle_spawn(obs);
+        }
+        
         // 连接地图服务器
         if (!connect_server(map_client_))
         {
@@ -224,7 +234,7 @@ namespace Planning
         }
     }
 
-    void PlanningProcess::planning_callback()       // 总流程回调
+    void PlanningProcess::planning_callback() // 总流程回调
     {
         // 获取规划开始的时候时间戳
         const auto start_time = this->get_clock()->now();
@@ -241,17 +251,31 @@ namespace Planning
         const auto refer_line_rviz = refer_line_creator_->referline_to_rviz(); // 生成rviz用的参考线 markerarray
         refer_line_pub_->publish(refer_line_rviz);                             // 发布rviz用的参考线
 
-        //
+        // 主车和障碍物向参考线投影
 
-        //
+        // 障碍物按s值排序
 
-        //
+        // 路径决策
+
+        // 路径规划
+
+        // 障碍物向路径投影
+
+        // 速度决策
+
+        // 速度规划
+
+        // 合成轨迹
+
+        // 更新绘图信息
+
+        // 更新车辆信息
 
         RCLCPP_INFO(this->get_logger(), "----------car state: location: (%.2f, %.2f), speed: %.2f, a: %.2f, theta: %.2f, kappa: %.2f",
                     car_->get_loc_point().pose.position.x, car_->get_loc_point().pose.position.y,
                     car_->get_speed(), car_->get_acceleration(),
                     car_->get_theta(), car_->get_kappa());
-        
+
         const auto end_time = this->get_clock()->now();
         const double planning_total_time = end_time.seconds() - start_time.seconds();
         RCLCPP_INFO(this->get_logger(), "planning total time: %f ms\n", planning_total_time * 1000);
@@ -262,7 +286,6 @@ namespace Planning
             RCLCPP_ERROR(this->get_logger(), "planning time too long!");
             rclcpp::shutdown();
         }
-        
     }
 
 }

@@ -20,7 +20,7 @@ namespace Planning
 
         if (choice == 1)
         {
-            // x_ = 8;
+
             while (count_ <= maxIt_)
             {
                 x_next = x_ - ((x_ * x_ * x_ - 216) / (3 * x_ * x_));
@@ -40,7 +40,6 @@ namespace Planning
         }
         else
         {
-            // x_ = 2;
             while (count_ <= maxIt_)
             {
                 x_next = x_ - ((4 * x_ * x_ * x_ + 2) / (12 * x_ * x_));
