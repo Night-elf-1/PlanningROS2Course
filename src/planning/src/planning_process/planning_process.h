@@ -91,6 +91,8 @@ namespace Planning
     // 全局路径请求客户端
     rclcpp::Client<GlobalPathService>::SharedPtr global_path_client_;
 
+    std::shared_ptr<DecisionCenter> decider_;       // 决策器
+
     double obs_dis_ = 0.0; // 考虑障碍物的距离
   };
 } // namespace Planing

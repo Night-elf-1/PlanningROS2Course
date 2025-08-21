@@ -27,6 +27,7 @@ namespace Planning
         // 更新笛卡尔参数
 
         // 笛卡尔转frenet
+        virtual void vehicle_cartesian_to_frenet(const Referline &refer_line) = 0;      // 定位点在参考线上的投影点参数
 
         // 获取成员变量返回值
         // 基本属性
@@ -45,6 +46,14 @@ namespace Planning
         inline double get_deacceleration() const { return deacceleration_; }
 
         // 向参考线投影的frenet参数
+        inline double get_s() const { return s_; }
+        inline double get_l() const { return l_; }
+        inline double get_ds_dt() const { return ds_dt_; }
+        inline double get_dl_ds() const { return dl_ds_; }
+        inline double get_dl_dt() const { return dl_dt_; }
+        inline double get_dds_dt() const { return dds_dt_; }
+        inline double get_ddl_ds() const { return ddl_ds_; }
+        inline double get_ddl_dt() const { return ddl_dt_; }
 
         // 向路径投影的frenet参数
 
@@ -71,6 +80,14 @@ namespace Planning
         double deacceleration_ = 0.0; // 加加速度
 
         // 向参考线投影的frenet参数
+        double s_ = 0.0;
+        double l_ = 0.0;
+        double ds_dt_ = 0.0;
+        double dl_ds_ = 0.0;
+        double dl_dt_ = 0.0;
+        double dds_dt_ = 0.0;
+        double ddl_ds_ = 0.0;
+        double ddl_dt_ = 0.0;
 
         // 向路径投影的frenet参数
 

@@ -14,8 +14,8 @@ namespace Planning
         car_ = std::make_shared<MainCar>(); // 父类对象调用子类指针 会调用主车文件中的构造函数
         for (int i = 0; i < 3; i++)         // 用循环来生成障碍物
         {
-            auto obs_car = std::make_shared<ObsCar>(i+1); // 创建一个障碍物的对象 指针
-            obses_spawn_.emplace_back(obs_car);        // 父类的指针， 指向了子类的对象
+            auto obs_car = std::make_shared<ObsCar>(i + 1); // 创建一个障碍物的对象 指针
+            obses_spawn_.emplace_back(obs_car);             // 父类的指针， 指向了子类的对象
         }
 
         // 坐标广播器
@@ -32,6 +32,9 @@ namespace Planning
         // 创建参考线和参考线的发布器
         refer_line_creator_ = std::make_shared<ReferenceLineCreator>();
         refer_line_pub_ = this->create_publisher<Path>("reference_line", 10);
+
+        // 创建决策器
+        decider_ = std::make_shared<DecisionCenter>();
     }
 
     bool PlanningProcess::process() // 规划总流程
@@ -58,13 +61,13 @@ namespace Planning
     {
         // 生成车辆
         vehicle_spawn(car_);
-        
+
         // 生成障碍物
         for (const auto &obs : obses_spawn_)
         {
             vehicle_spawn(obs);
         }
-        
+
         // 连接地图服务器
         if (!connect_server(map_client_))
         {
@@ -240,6 +243,17 @@ namespace Planning
         const auto start_time = this->get_clock()->now();
         // 监听车辆定位
         get_location(car_); // 监听主车定位
+        obses_.clear();
+        for (const auto &obs : obses_spawn_)
+        {
+            get_location(obs);
+            if (std::hypot(car_->get_loc_point().pose.position.x - obs->get_loc_point().pose.position.x,
+                           car_->get_loc_point().pose.position.y - obs->get_loc_point().pose.position.y) > obs_dis_)
+            {
+                continue;
+            }
+            obses_.emplace_back(obs);
+        }
 
         // 参考线
         const auto refer_line = refer_line_creator_->creat_reference_line(global_path_, car_->get_loc_point());
@@ -252,10 +266,19 @@ namespace Planning
         refer_line_pub_->publish(refer_line_rviz);                             // 发布rviz用的参考线
 
         // 主车和障碍物向参考线投影
+        car_->vehicle_cartesian_to_frenet(refer_line); // 父类指针 调用子类对象
+        for (const auto &obs : obses_)
+        {
+            obs->vehicle_cartesian_to_frenet(refer_line);
+        }
 
         // 障碍物按s值排序
+        std::sort(obses_.begin(), obses_.end(),
+                  [](const std::shared_ptr<VehicleBase> &obs1, const std::shared_ptr<VehicleBase> &obs2)
+                  { return obs1->get_s() < obs2->get_s(); });
 
         // 路径决策
+        decider_->make_path_decision(car_, obses_);
 
         // 路径规划
 

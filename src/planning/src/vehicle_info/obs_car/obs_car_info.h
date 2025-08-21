@@ -10,6 +10,8 @@ class ObsCar : public VehicleBase  // 障碍物
 {
 public:
     ObsCar(const int &id);
+
+    void vehicle_cartesian_to_frenet(const Referline &refer_line) override;
 };
 
 }   // namespace Planning
